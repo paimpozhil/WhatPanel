@@ -15,10 +15,11 @@ see : https://github.com/Eugeny/ajenti-v
 
 ##The IDEA:
 
-Easily & Lazily Host websites on multiple small VPS/Clouds instead of one large Dedicated server.
-Dont have single point of failure.
-Provide as much isolation as you can between clients 
-Allow Web w SSL/Domain aliasing/DNS/Emailing/Database in a single setup that is very easy to move around/scale/create dev environments
+*Easily & Lazily Host websites on multiple small VPS/Clouds instead of one large Dedicated server
+*Dont have single point of failure
+*Provide as much isolation as you can between clients 
+*Allow Web w SSL/Domain aliasing/DNS/Emailing/Database in a single setup 
+*Very easy to move around/scale/create dev environments
 
 ##How to use?
 
