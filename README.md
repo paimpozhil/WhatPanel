@@ -55,9 +55,9 @@ so it wont be obvious for the attacker/viruses to try and hit your server.
 
 I would have loved to use the Ubuntu image / phusion baseimage however the ubuntu repositories are not suited for web hosting/ecommerce environments. 
 
-Most existing websites require php 5.3.x - 5.4 .. but Ubuntu provides 5.5.9., Nice for newly developing websites but not for existing
+Most existing websites require php 5.3.x - 5.4 .. but Ubuntu provides 5.5.9., Nice for new web-apps but not for existing sites.
 
-I tried both VsFTPd/PureFTPD and both didnt work with Ajenti inside docker , and most web hosting envinroments need some sort of FTP solution.
+I tried both VsFTPd/PureFTPD and both didnt work with Ajenti inside docker in Ubuntu image, and most web hosting envinroments need some sort of FTP solution atleast rarely. so I went to the Centos and everything was very smooth.
 
 ##What about DNS / Email?
 
@@ -79,7 +79,7 @@ You should go with a hosted email with exchange like 1&1 for 10$/year range or R
 
 All you need to do is ssh into server , yum install bind9 / yum install ajenti-v-mail
 
-Or add these instructions into docker file and run the image with additional ports opened .. ex: -p 25:25 (SMTP ), -p 143:143 (IMAP) -p 110:110 (POP) and so on.
+Or add these instructions into docker file and run the image with additional ports opened .. ex: -p 53:53 (DNS) -p 25:25 (SMTP ), -p 143:143 (IMAP) -p 110:110 (POP) and so on.
 
 
 ##To Do 
