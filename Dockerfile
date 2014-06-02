@@ -31,6 +31,12 @@ RUN sed -i "s/#PermitRootLogin/PermitRootLogin/g" /etc/ssh/sshd_config
 
 RUN echo 'root:changeme' | chpasswd
 
+RUN mkdir /scripts
+ADD mysqlsetup.sh /scripts/mysqlsetup.sh
+RUN chmod 0755 /scripts/*
+
+RUN echo "/scripts/mysqlsetup.sh" >> /etc/rc.d/rc.local
+
 EXPOSE 22 80 8000 3306 443
 
 ENTRYPOINT ["/sbin/init"]
