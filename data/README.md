@@ -15,7 +15,7 @@ subdirectories under /data for postgres/etc.
 docker build -t stddata .
 
 #### how to start a data volume
-docker run --name appdata stddata
+docker run -td --name appdata stddata
 
 #### how to use in other containers
 docker run -ti --name whatever --volumes-from appdata ubuntu /bin/bash 
