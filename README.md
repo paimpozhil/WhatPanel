@@ -34,7 +34,7 @@ docker run -d -p 8000:8000 -p 80:80 -p 443:443 -p 2222:22 -p 21:21 whatpanel
 
 ```
 
-go to http://[ip of server]:8000 in your browser
+go to https://[ip of server]:8000 in your browser
 default logins root/admin
 
 login and go to websites section.
