@@ -71,7 +71,7 @@ The image comes with Backup Ninja preinstalled.. to get started ssh into your co
 ```
 ninjahelper
 ```
-for more info please checkhttps://labs.riseup.net/code/projects/backupninja
+for more info please check https://labs.riseup.net/code/projects/backupninja
 
 ##What about DNS / Email?
 
@@ -97,8 +97,6 @@ Or add these instructions into docker file and run the image with additional por
 
 
 ##To Do 
-
-Backup script
 
 cPanel Transfer script 
 
