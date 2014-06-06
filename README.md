@@ -24,17 +24,24 @@ see : https://github.com/Eugeny/ajenti-v
 ##How to use?
 
 ```
+##the ONE paste control panel setup.
+docker run -d -p 8000:8000 -p 80:80 -p 443:443 -p 2222:22 -p 21:21 paimpozhil/whatpanel
+```
 
-git clone https://github.com/paimpozhil/WhatPanel.git .
+or 
+
+```
+git clone https://github.com/paimpozhil/WhatPanel.git 
+cd WhatPanel
+## make your changes to Dockerfile if you'd like
 docker build -t whatpanel .
-
 docker run -d -p 8000:8000 -p 80:80 -p 443:443 -p 2222:22 -p 21:21 whatpanel
 
 ## optionally build the data container (inside data directory) & use --volumes-from to seperate the data from server configuration. Learn how to use Data volumes from http://docs.docker.io/use/working_with_volumes/
 
 ```
 
-go to https://[ip of server]:8000 in your browser
+Visit https://[ip of server]:8000 in your browser
 default logins root/admin
 
 login and go to websites section.
@@ -44,11 +51,10 @@ to access server in ssh :
 default ssh port 2222
 default logins root/changeme
 
-
 on the docker-run command you can use different external ports than defaults for more security
 ex  -p 7090:8000 , -p 2345:22 
 
-so it wont be obvious for the attacker/viruses to try and hit your server.
+so it wont be obvious target for the attacker/viruses to try and hit your server.
 
 
 ##Why Centos Image?
