@@ -1,0 +1,209 @@
+# passed directly to duplicity
+#options = --verbosity 8
+options =
+
+# default is 0, but set to 19 if you want to lower the priority.
+nicelevel = 19
+
+# default is yes. set to no to skip the test if the remote host is alive.
+# if 'desturl' is set below, 'testconnect' must be set to 'no' for now.
+testconnect = yes
+
+## temporary directory used by duplicity, set to some other location if your /tmp is small
+## default is either /tmp or /usr/tmp, depending on the system
+##
+## Default:
+# tmpdir = /tmp
+
+######################################################
+## gpg section
+## (how to encrypt and optionally sign the backups)
+##
+## WARNING: old (pre-0.9.4) example.dup used to give wrong information about
+##          the way the following options are used. Please read the following
+##          carefully.
+##
+## If the encryptkey variable is set:
+##   - data is encrypted with the GnuPG public key specified by the encryptkey
+##     variable
+##   - if signing is enabled, data is signed with the GnuPG private
+##     key specified by the signkey variable
+##   - the password variable is used to unlock the GnuPG key(s) used
+##     for encryption and (optionnal) signing
+##
+## If the encryptkey option is not set:
+##   - data signing is not possible
+##   - the password variable is used to encrypt the data with symmetric
+##     encryption: no GnuPG key pair is needed
+
+[gpg]
+
+# when set to yes, encryptkey variable must be set below; if you want to use
+# two different keys for encryption and signing, you must also set the signkey
+# variable below.
+# default is no, for backwards compatibility with backupninja <= 0.5.
+sign = no
+
+# ID of the GnuPG public key used for data encryption.
+# if not set, symmetric encryption is used, and data signing is not possible.
+encryptkey =
+
+# ID of the GnuPG private key used for data signing.
+# if not set, encryptkey will be used.
+signkey =
+
+# password --- CHANGE THIS or you are dead .
+# NB: neither quote this, nor should it include any quotes
+password = whatpanelbackup
+
+######################################################
+## source section
+## (where the files to be backed up are coming from)
+
+[source]
+
+# A few notes about includes and excludes:
+# 1. include, exclude and vsinclude statements support globbing with '*'
+# 2. Symlinks are not dereferenced. Moreover, an include line whose path
+#    contains, at any level, a symlink to a directory, will only have the
+#    symlink backed-up, not the target directory's content. Yes, you have to
+#    dereference yourself the symlinks, or to use 'mount --bind' instead.
+#    Example: let's say /home is a symlink to /mnt/crypt/home ; the following
+#    line will only backup a "/home" symlink ; neither /home/user nor
+#    /home/user/Mail will be backed-up :
+#      include = /home/user/Mail
+#    A workaround is to 'mount --bind /mnt/crypt/home /home' ; another one is to
+#    write :
+#      include = /mnt/crypt/home/user/Mail
+# 3. All the excludes come after all the includes. The order is not otherwise
+#    taken into account.
+
+# files to include in the backup
+include = /backup
+include = /var/www
+include = /data
+
+# If vservers = yes in /etc/backupninja.conf then the following variables can
+# be used:
+# vsnames = all | <vserver1> <vserver2> ... (default = all)
+# vsinclude = <path>
+# vsinclude = <path>
+# ...
+# Any path specified in vsinclude is added to the include list for each vserver
+# listed in vsnames (or all if vsnames = all, which is the default).
+#
+# For example, vsinclude = /home will backup the /home directory in every
+# vserver listed in vsnames. If you have 'vsnames = foo bar baz', this
+# vsinclude will add to the include list /vservers/foo/home, /vservers/bar/home
+# and /vservers/baz/home.
+# Vservers paths are derived from .
+
+
+# files to exclude from the backup
+exclude = /home/*/.gnupg
+exclude = /home/*/.local/share/Trash
+exclude = /home/*/.Trash
+exclude = /home/*/.thumbnails
+exclude = /home/*/.beagle
+exclude = /home/*/.aMule
+exclude = /home/*/gtk-gnutella-downloads
+exclude = /var/cache/backupninja/duplicity
+
+######################################################
+## destination section
+## (where the files are copied to)
+
+[dest]
+
+# perform an incremental backup? (default = yes)
+# if incremental = no, perform a full backup in order to start a new backup set
+incremental = yes
+
+# how many days of incremental backups before doing a full backup again ;
+# default is 30 days (one can also use the time format of duplicity).
+# if increments = keep, never automatically perform a new full backup ;
+# only perform incremental backups.
+#increments = 30
+#increments = keep
+increments = 30
+
+# how many days of data to keep ; default is 60 days.
+# (you can also use the time format of duplicity)
+# 'keep = yes' means : do not delete old data, the remote host will take care of this
+#keep = 60
+#keep = 1Y
+#keep = yes
+keep = 120
+
+# for how many full backups do we keep their later increments ;
+# default is all (keep all increments).
+# increments for older full backups will be deleted : only the more
+# recent ones (count provided) will be kept
+#keepincroffulls = all
+#keepincroffulls = 6
+keepincroffulls = all
+
+# full destination URL, in duplicity format; if set, desturl overrides
+# sshoptions, destdir, desthost and destuser; it also disables testconnect and
+# bandwithlimit. For details, see duplicity manpage, section "URL FORMAT".
+#desturl = file:///usr/local/backup
+#desturl = rsync://user@other.host//var/backup/bla
+#desturl = s3+http://your_bucket
+#desturl = ftp://myftpuser@ftp.example.org/remote/ftp/path
+
+# Amazon Web Services Access Key ID and Secret Access Key, needed for backups
+# to S3 buckets.
+#awsaccesskeyid = YOUR_AWS_ACCESS_KEY_ID
+#awssecretaccesskey = YOUR_AWS_SECRET_KEY
+
+## RackSpace's CloudFiles username, API key, and authentication URL.
+## cfusername = YOUR_CF_USERNAME
+## cfapikey = YOUR_CF_API_KEY
+## cfauthurl = YOUR_CF_AUTH_URL
+##
+## Default:
+# cfusername =
+# cfapikey =
+# cfauthurl =
+
+# FTP password, needed for backups using desturl = ftp://...
+#ftp_password =
+
+# bandwith limit, in kbit/s ; default is 0, i.e. no limit
+# if using 'desturl' above, 'bandwidthlimit' must not be set
+# an example setting of 128 Kbit/s would be:
+#bandwidthlimit = 128
+bandwidthlimit =
+
+## duplicity < 0.6.17
+## ------------------
+## passed directly to ssh, scp (and sftp in duplicity >=0.4.2)
+## warning: sftp does not support all scp options, especially -i; as
+## a workaround, you can use "-o <SSHOPTION>"
+## an example setting would be:
+## sshoptions = -o IdentityFile=/root/.ssh/id_rsa_duplicity
+##
+## duplicity >= 0.6.17
+## ------------------
+## supports only "-o IdentityFile=..."
+##
+## Default:
+# sshoptions =
+
+# put the backups under this destination directory
+# if using 'desturl' above, this must not be set
+# in all other cases, this must be set!
+destdir = backups
+
+# the machine which will receive the backups
+# if using 'desturl' above, this must not be set
+# in all other cases, this must be set!
+# not to change the backuphost to your backup server if you are not using any other backup method.
+desthost = backuphost
+
+# make the files owned by this user
+# if using 'desturl' above, this must not be set
+# note: if using an SSH based transport and 'type' is set to 'remote', you must
+#       be able to 'ssh backupuser@backuphost' without specifying a password.
+destuser = backupser
+
