@@ -103,15 +103,12 @@ cPanel Transfer script
 
 ## Credits
 
-Ajenti:
-https://github.com/Eugeny/ajenti
+Ajenti: its the cPanel/Plesk killer.
 
-https://github.com/Eugeny/ajenti-v
+#### https://github.com/Eugeny/ajenti
 
-I like everything about this project , its the cPanel/Plesk killer.
+####  https://github.com/Eugeny/ajenti-v
 
-Centos:
+Centos Project
 
-Docker:
-
-You dont need URLS for these dont you?
+Docker.io
