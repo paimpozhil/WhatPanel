@@ -49,7 +49,7 @@ login and go to websites section.
 
 to access server in ssh :
 default ssh port 2222
-default logins root/changeme
+default logins root/ch@ngem3
 
 on the docker-run command you can use different external ports than defaults for more security
 ex  -p 7090:8000 , -p 2345:22 
@@ -57,7 +57,7 @@ ex  -p 7090:8000 , -p 2345:22
 so it wont be obvious target for the attacker/viruses to try and hit your server.
 
 
-##Why Centos Image?
+##Why Centos Image?ch
 
 I would have loved to use the Ubuntu image / phusion baseimage however the ubuntu repositories are not suited for web hosting/ecommerce environments. 
 
