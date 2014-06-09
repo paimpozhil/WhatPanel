@@ -37,7 +37,7 @@ RUN chkconfig vsftpd off
 RUN sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config
 RUN sed -i "s/#PermitRootLogin/PermitRootLogin/g" /etc/ssh/sshd_config
 
-RUN echo 'root:changeme' | chpasswd
+RUN echo 'root:ch@ngem3' | chpasswd
 
 RUN mkdir /scripts
 ADD mysqlsetup.sh /scripts/mysqlsetup.sh
