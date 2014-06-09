@@ -45,6 +45,12 @@ RUN chmod 0755 /scripts/*
 
 RUN echo "/scripts/mysqlsetup.sh" >> /etc/rc.d/rc.local
 
+
+ADD backup /etc/backup.d/
+
+RUN chmod 0600 /etc/backup.* -R
+
+
 EXPOSE 22 80 8000 3306 443
 
 ENTRYPOINT ["/sbin/init"]
