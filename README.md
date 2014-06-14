@@ -53,7 +53,7 @@ ex  -p 7090:8000 , -p 2345:22
 so it wont be obvious target for the attacker/viruses to try and hit your server.
 
 
-##Why Centos Image?ch
+##Why Centos Image ?
 
 I would have loved to use the Ubuntu image / phusion baseimage however the ubuntu repositories are not suited for web hosting/ecommerce environments. 
 
