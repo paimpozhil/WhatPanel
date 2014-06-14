@@ -1,17 +1,14 @@
 WhatPanel
 =========
 
-Docker based solution for easy web hosting with Ajenti !  
+Docker based solution for easy web hosting with Ajenti supports FTP/Cron/Sql databases on Centos.
 
 This is basically very simple control panel, if you have docker installed, you can get going with just one command :)
 
-Includes support for Cron / SSH  on Centos Image
-
-By default has MYSQL/PHP enabled but since we use Ajenti you can easily install ruby/python/nodejs or any custom softwares with simple
-
+By default has MYSQL/PHP enabled but with Ajenti you can easily install ruby/python/nodejs or any custom softwares with simple
 yum install commands
 
-see : https://github.com/Eugeny/ajenti-v
+Refer : https://github.com/Eugeny/ajenti-v
 
 ##The IDEA:
 
@@ -46,7 +43,6 @@ default logins root/admin
 
 login and go to websites section.
 
-
 to access server in ssh :
 default ssh port 2222
 default logins root/ch@ngem3
@@ -61,7 +57,7 @@ so it wont be obvious target for the attacker/viruses to try and hit your server
 
 I would have loved to use the Ubuntu image / phusion baseimage however the ubuntu repositories are not suited for web hosting/ecommerce environments. 
 
-Most existing websites require php 5.3.x - 5.4 .. but Ubuntu provides 5.5.9., Nice for new web-apps but not for existing sites.
+Most existing websites require php 5.3.x - 5.4  but Ubuntu provides 5.5.9., Nice for new web-apps but not for existing sites.
 
 I tried both VsFTPd/PureFTPD and both didnt work with Ajenti inside docker in Ubuntu image, and most web hosting envinroments need some sort of FTP solution atleast rarely. so I went to the Centos and everything was very smooth.
 
