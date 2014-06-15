@@ -11,19 +11,27 @@ Apache/Nginx/etc will use these volumes to persist their data. You can
 add more volumes in Dockerfile if you wish to OR you can just use the 
 subdirectories under /data for postgres/etc.
 
-#### Quick Setup
+#### Quick way
 
+```
 docker run -td --name [yourdataname] paimpozhil/data
 
+##Now you have the volumes setup , run another container to utlize this
+
+docker run -ti --name whatever --volumes-from [yourdataname] [imagename] /your/command
+
+```
+
 #### How to build & run with your modifications.
+```
 docker build -t stddata .
+```
 
 #### How to start a data volume
+```
 docker run -td --name [yourdataname] stddata
+```
 
 #### How to use in other containers
-docker run -ti --name whatever --volumes-from [yourdataname] ubuntu /bin/bash 
+docker run -ti --name whatever --volumes-from [yourdataname] [imagename] /bin/bash 
 
-On our dPanel however each Datacontainer WILL be named as the sitename 
-and will be auto linked to every other container that is started 
-together.
