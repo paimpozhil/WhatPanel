@@ -1,0 +1,30 @@
+---
+- hosts: all
+  remote_user: root
+
+  tasks:
+  - name: Create swap space
+    command:  fallocate -l 4G /swapfile
+    when: ansible_swaptotal_mb < 1
+
+  - name: Make swap
+    command: mkswap /swapfile
+    when: ansible_swaptotal_mb < 1
+
+  - name: Add to fstab
+    action: lineinfile dest=/etc/fstab regexp="swapfile" line="/swapfile none swap sw 0 0" state=present
+
+  - name: Turn swap on
+    command: swapon -a
+
+  - name: Set swapiness
+    shell: sysctl vm.swappiness=10
+
+  - name: Add to swappiness to sysctl.conf
+    action: lineinfile dest=/etc/sysctl.conf regexp="swappiness" line="vm.swappiness=10" state=present
+
+  - name: Set Cache Pressure
+    shell: sysctl vm.vfs_cache_pressure=50
+
+  - name: Add to vfs_cache_pressure to sysctl.conf
+    action: lineinfile dest=/etc/sysctl.conf regexp="cache_pressure" line="vm.vfs_cache_pressure = 50" state=present

@@ -1,0 +1,16 @@
+---
+- hosts: all
+  remote_user: root
+
+  tasks:
+  - name: setup python-pip
+    apt: pkg=python-pip state=latest
+
+  - name: setup docker-py
+    command: pip install docker-py
+
+  - name: run data container
+    docker: image=paimpozhil/data name="{{ doname }}" tty=yes 
+
+  - name: run whatpanel container
+    docker: image=paimpozhil/whatpanel volumes_from="{{ doname }}"  ports=8000:8000,80:80,2222:22,443:443

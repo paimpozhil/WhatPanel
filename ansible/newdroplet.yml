@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  tasks:
+  - name: Create new DO Droplet
+    digital_ocean: >
+      state=present
+      command=droplet
+      name={{ doname }}
+      size_id=66
+      region_id=4
+      image_id=4296335
+      ssh_key_ids=160794
+
