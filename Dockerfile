@@ -19,6 +19,9 @@ RUN yum -y install /sbin/service which nano openssh-server git mysql-server mysq
 #install Ajenti the control panel
 RUN yum -y install ajenti-v ajenti-v-ftp-vsftpd ajenti-v-php-fpm ajenti-v-mysql
 
+## fix the locale problems iwth default centos image.. may not be necessary in future. 
+RUN yum -y reinstall glibc-common
+
 # setup the services to start on the container bootup
 RUN chkconfig mysqld on
 RUN chkconfig nginx on
