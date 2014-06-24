@@ -24,7 +24,7 @@ echo  " Trying to dump mysql output via Shell"
 sshpass -p '$cppass' ssh $cpuser@$cphost -p $cpport mysqldump -u$cpuser -p$cppass --all-databases > tmpsql.sql
 
 echo "inserting data into mysql database"
-mysql -hmysqldb -uadmin < tmpsql.sql
+mysql < tmpsql.sql
 
 echo "removing temp file"
 rm tmpsql.sql
