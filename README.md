@@ -21,12 +21,19 @@ Refer : https://github.com/Eugeny/ajenti-v
 ##How to use?
 
 ```
-##the ONE paste control panel setup.
+## The quickest but not so great way to test the control panel
 docker run -d -p 8000:8000 -p 80:80 -p 443:443 -p 2222:22 -p 21:21 paimpozhil/whatpanel
+
+## Best way to run control panel is with a volume attached to serve /var/lib/mysql /var/www,etc paimpozhil/data has them so 
+
+docker run -td --name yourdataname  paimpozhil/data
+docker run -d -p 8000:8000 -p 80:80 -p 443:443 -p 2222:22 -p 21:21 --volumes-from yourdataname  paimpozhil/whatpanel
+
 ```
 
 or 
 
+Build it yourself
 ```
 git clone https://github.com/paimpozhil/WhatPanel.git 
 cd WhatPanel
