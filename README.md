@@ -7,7 +7,6 @@ This is basically very simple control panel, if you have docker installed, you c
 
 By default has MYSQL/PHP enabled but with Ajenti you can easily install ruby/python/nodejs or any custom softwares with simple
 yum install commands
-
 Refer : https://github.com/Eugeny/ajenti-v
 
 ##The IDEA:
@@ -20,8 +19,11 @@ Refer : https://github.com/Eugeny/ajenti-v
 
 ##How to use?
 
+Follow this tutorial if you like step by step instructions 
+#### http://greenycloud.com/hosting-on-whatpanel/
+
 ```
-## The quickest but not so great way to test the control panel
+## The quickest -one paste- but not so great way to test the control panel
 docker run -d -p 8000:8000 -p 80:80 -p 443:443 -p 2222:22 -p 21:21 paimpozhil/whatpanel
 
 ## Best way to run control panel is with a volume attached to serve /var/lib/mysql /var/www,etc paimpozhil/data has them so 
@@ -55,9 +57,7 @@ default ssh port 2222
 default logins root/ch@ngem3
 
 on the docker-run command you can use different external ports than defaults for more security
-ex  -p 7090:8000 , -p 2345:22 
-
-so it wont be obvious target for the attacker/viruses to try and hit your server.
+ex  -p 7090:8000 , -p 2345:22  so it wont be obvious target for the attacker/viruses to try and hit your server.
 
 
 ##Why Centos Image ?
