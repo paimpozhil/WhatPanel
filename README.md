@@ -98,6 +98,15 @@ All you need to do is ssh into server , yum install bind9 / yum install ajenti-v
 
 Or add these instructions into docker file and run the image with additional ports opened .. ex: -p 53:53 (DNS) -p 25:25 (SMTP ), -p 143:143 (IMAP) -p 110:110 (POP) and so on.
 
+On many cases people would like the server to send the outgoing emails like for contact form,etc and in php case mail() function.
+
+If you need this facility ssh or nsenter into the docker container and then issue.
+
+ ```
+ yum install exim4 mailx
+ alternatives --config mta
+## choose exim and you are set.
+ ```
 
 ##To Do 
 
