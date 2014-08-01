@@ -103,8 +103,11 @@ On many cases people would like the server to send the outgoing emails like for 
 If you need this facility ssh or nsenter into the docker container and then issue.
 
  ```
- yum install exim4 mailx
- alternatives --config mta
+yum install exim mailx
+## install mail server & utils
+chkconfig exim on
+## start exim on boot
+alternatives --config mta
 ## choose exim and you are set.
  ```
 
