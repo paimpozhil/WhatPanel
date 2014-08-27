@@ -90,18 +90,11 @@ Ajenti already supports bind9 and email configuration out of the box. You may ha
 
 Regarding EMAIL:
 
-Like DNS , Email is very critical for many business I wouldnt host my own email inside a container / VPS or even my dedicated servers that also host my web app because web apps may get hacked and will probably get blacklisted in other email spamlists.
+If all you need is outgoing emails to just work like contact forms (php mail() or just mail command in CLI) then use the following guide.
 
-You should go with a hosted email with exchange like 1&1 for 10$/year range or Rackspace for 2$/user/month range or 5$/user/month with Google/outlook instead of doing this for critical 
+http://www.dockerforums.com/t/how-to-setup-outgoing-emails-within-centos-whatpanel-containers/75
 
-All you need to do is ssh into server , yum install bind9 / yum install ajenti-v-mail
-
-Or add these instructions into docker file and run the image with additional ports opened .. ex: -p 53:53 (DNS) -p 25:25 (SMTP ), -p 143:143 (IMAP) -p 110:110 (POP) and so on.
-
-On many cases people would like the server to send the outgoing emails like for contact form,etc and in php case mail() function.
-
-If you need this facility ssh or nsenter into the docker container and then issue.
-
+For the Impatient.
  ```
 yum install exim mailx
 ## install mail server & utils
@@ -110,6 +103,17 @@ chkconfig exim on
 alternatives --config mta
 ## choose exim and you are set.
  ```
+
+If you are looking for incoming emails to work, read below.. I will support them in the near future but with a warning.
+
+Like DNS , Email is very critical for many business I wouldnt host my own email inside a container / VPS or even my dedicated servers that also host my web app because web apps may get hacked and will probably get blacklisted in other email spamlists.
+
+You should go with a hosted email with exchange like 1&1 for 10$/year range or Rackspace for 2$/user/month range or 5$/user/month with Google/outlook instead of doing this for critical 
+
+All you need to do is ssh into server , yum install bind9 / yum install ajenti-v-mail
+
+Or add these instructions into docker file and run the image with additional ports opened .. ex: -p 53:53 (DNS) -p 25:25 (SMTP ), -p 143:143 (IMAP) -p 110:110 (POP) and so on.
+
 
 ##To Do 
 
