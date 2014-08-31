@@ -22,11 +22,7 @@ RUN yum -y install ajenti-v ajenti-v-ftp-vsftpd ajenti-v-php-fpm ajenti-v-mysql
 RUN yum -y reinstall glibc-common
 
 # setup the services to start on the container bootup
-RUN chkconfig mysqld on
-RUN chkconfig nginx on
-RUN chkconfig php-fpm on
-RUN chkconfig crond on
-RUN chkconfig ajenti on
+RUN chkconfig mysqld on && chkconfig nginx on && chkconfig php-fpm on && chkconfig crond on && chkconfig ajenti on
 
 # defaut centos image seems to have issues with few missing files from this library
 RUN rpm --nodeps -e cracklib-dicts-2.8.16-4.el6.x86_64
