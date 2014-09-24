@@ -17,7 +17,7 @@ Refer : https://github.com/Eugeny/ajenti-v
 * Allow Web w SSL/Domain aliasing/DNS/Emailing/Database in a single setup 
 * Very easy to move around/scale/create dev environments
 
-##Installation
+##Docker Installation
 * Install Docker on CentOS or Fedora
 * To install Docker on CentOS, first enable EPEL repository, and then use yum command:
 ```
