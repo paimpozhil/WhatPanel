@@ -1,20 +1,5 @@
 # Docker Cheat Sheet
 
-NOTE: This used to be a gist that continually expanded.  It's now a github project because it's considerably easier for other people to edit, fix and expand on Docker using Github.  Just click  [README.md](https://github.com/wsargent/docker-cheat-sheet/blob/master/README.md), and then on the "writing pen" icon on the right to edit.
-
-That's it, you have a running Docker container.  Also note that Vagrant 1.6 has Docker [supported as a built-in provisioner](https://docs.vagrantup.com/v2/docker/index.html) which can help you when configuring images.
-
-I use [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh) with the [Docker plugin](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins#docker) for autocompletion of docker commands.  YMMV.
-
-## Containers
-
-[Your basic isolated Docker process](http://docker.readthedocs.org/terms/container/#container-def).  Containers are to Virtual Machines as threads are to processes.  Or you can think of them as chroots on steroids.
-
-Some common misconceptions it's worth correcting:
-
-* __Containers are not transient__.  `docker run` doesn't do what you think.
-* __Containers are not limited to running a single command or process.__  You can use [supervisord](http://docs.docker.io/examples/using_supervisord/) or [runit](https://github.com/phusion/baseimage-docker).
-
 ### Lifecycle
 
 * [`docker run`](http://docs.docker.io/reference/commandline/cli/#run) creates a container.
