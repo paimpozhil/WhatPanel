@@ -2,33 +2,6 @@
 
 NOTE: This used to be a gist that continually expanded.  It's now a github project because it's considerably easier for other people to edit, fix and expand on Docker using Github.  Just click  [README.md](https://github.com/wsargent/docker-cheat-sheet/blob/master/README.md), and then on the "writing pen" icon on the right to edit.
 
-* [Why](https://github.com/wsargent/docker-cheat-sheet#why)
-* [I just want a dev environment](https://github.com/wsargent/docker-cheat-sheet#tldr-i-just-want-a-dev-environment)
-* [Prerequisites](https://github.com/wsargent/docker-cheat-sheet#prequisites)
-* [Installation](https://github.com/wsargent/docker-cheat-sheet#installation)
-* [Containers](https://github.com/wsargent/docker-cheat-sheet#containers)
-* [Images](https://github.com/wsargent/docker-cheat-sheet#images)
-* [Registry and Repository](https://github.com/wsargent/docker-cheat-sheet#registry--repository)
-* [Dockerfile](https://github.com/wsargent/docker-cheat-sheet#dockerfile)
-* [Layers](https://github.com/wsargent/docker-cheat-sheet#layers)
-* [Links](https://github.com/wsargent/docker-cheat-sheet#links)
-* [Volumes](https://github.com/wsargent/docker-cheat-sheet#volumes)
-* [Exposing Ports](https://github.com/wsargent/docker-cheat-sheet#exposing-ports)
-* [Tips](https://github.com/wsargent/docker-cheat-sheet#tips)
-
-## Why
-
-[Why Should I Care (For Developers)](https://www.docker.io/the_whole_story/#Why-Should-I-Care-\(For-Developers\))
-
-> "Docker interests me because it allows simple environment isolation and repeatability. I can create a run-time environment once, package it up, then run it again on any other machine. Furthermore, everything that runs in that environment is isolated from the underlying host (much like a virtual machine). And best of all, everything is fast and simple."
-
-
-Then start up a container:
-
-```
-sudo docker run -i -t ubuntu /bin/bash
-```
-
 That's it, you have a running Docker container.  Also note that Vagrant 1.6 has Docker [supported as a built-in provisioner](https://docs.vagrantup.com/v2/docker/index.html) which can help you when configuring images.
 
 I use [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh) with the [Docker plugin](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins#docker) for autocompletion of docker commands.  YMMV.
