@@ -18,8 +18,8 @@ Refer : https://github.com/Eugeny/ajenti-v
 * Very easy to move around/scale/create dev environments
 
 ##Installation
-#Install Docker on CentOS or Fedora
-#To install Docker on CentOS, first enable EPEL repository, and then use yum command:
+# Install Docker on CentOS or Fedora
+# To install Docker on CentOS, first enable EPEL repository, and then use yum command:
 
 $ sudo yum install docker-io
 $ sudo service docker start
