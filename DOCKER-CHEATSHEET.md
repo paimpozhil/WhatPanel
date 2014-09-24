@@ -20,8 +20,22 @@ You can find a copy of [nsenter here](https://github.com/jpetazzo/nsenter)
 This is a small Docker recipe to build `nsenter` easily and install it in your
 system.
 
+### Entering a Docker Container
 
-## What is `nsenter`?
+The "official" way to enter a docker container while it's running is to use `nsenter`, which uses [libcontainer under the hood](http://jpetazzo.github.io/2014/03/23/lxc-attach-nsinit-nsenter-docker-0-9/).  Using an `sshd` daemon is [considered evil](http://jpetazzo.github.io/2014/06/23/docker-ssh-considered-evil/).  
+
+Unfortunately, nsenter requires some configuration and installation. If your operating system does not include nsenter (usually in a package named util-linux or similar, although it has to be quite a recent version), the easiest way is probably to install it through docker, as described in the first of the following links:
+
+* [Installing nsenter using docker](https://github.com/jpetazzo/nsenter)
+* [How to enter a Docker container](https://blog.codecentric.de/en/2014/07/enter-docker-container/)
+* [Docker debug with nsenter on boot2docker](http://blog.sequenceiq.com/blog/2014/07/05/docker-debug-with-nsenter-on-boot2docker/)
+
+`nsenter` allows you to run any command (e.g. a shell) inside a container that's already running another command (e.g. your database or webserver). This allows you to see all mounted volumes, check on processes, log files etc. inside a running container.
+
+The first installation method described above also installs a small wrapper script wrapping `nsenter` named `docker-enter` that makes executing a shell inside a running container as easy as `docker-enter CONTAINER` and any other command via `docker-enter CONTAINER COMMAND`.
+
+
+### What is `nsenter`?
 
 It is a small tool allowing to `enter` into `n`ame`s`paces. Technically,
 it can enter existing namespaces, or spawn a process into a new set of
@@ -32,7 +46,7 @@ We are talking about [container namespaces].
 excited about it is because it lets you [enter into a Docker container].
 
 
-## Why build `nsenter` in a container?
+### Why build `nsenter` in a container?
 
 This is because my preferred distros (Debian and Ubuntu) ship with an
 outdated version of `util-linux` (the package that should contain `nsenter`).
@@ -44,7 +58,7 @@ you want to enter a Docker container. Therefore, you won't mind if my
 method to build `nsenter` uses Docker itself.
 
 
-## How do I install `nsenter` with this?
+### How do I install `nsenter` with this?
 
 If you want to install `nsenter` into `/usr/local/bin`, just do this:
 
@@ -62,7 +76,7 @@ your system's `$PATH`, you can also do this:
 Then do whatever you want with the binary in `/tmp/nsenter`.
 
 
-##  `nsenter` inner workings.
+###  `nsenter` inner workings.
 
 First, figure out the PID of the container you want to enter:
 
@@ -73,7 +87,7 @@ Then enter the container:
     nsenter --target $PID --mount --uts --ipc --net --pid
 
 
-## What's that docker-enter thing?
+### What's that docker-enter thing?
 
 It's just a small shell script that wraps up the steps described above into
 a tiny helper. It takes the name or ID of a container and optionally the name
@@ -84,14 +98,6 @@ shell will be invoked instead.
     # list the root filesystem
     docker-enter my_awesome_container ls -la
 
-
-If you want a transient container, `docker run --rm` will remove the container after it stops.
-
-If you want to poke around in an image, `docker run -t -i <myimage> <myshell>` to open a tty.
-
-If you want to map a directory on the host to a docker container, `docker run -v $HOSTDIR:$DOCKERDIR` (also see Volumes section).
-
-If you want to integrate a container with a [host process manager](http://docs.docker.io/use/host_integration/), start the daemon with `-r=false` then use `docker start -a`.
 
 If you want to expose container ports through the host, see the [exposing ports](https://github.com/wsargent/docker-cheat-sheet#exposing-ports) section.
 
@@ -114,47 +120,12 @@ There doesn't seem to be a way to use docker directly to import files into a con
 * [`docker cp`](http://docs.docker.io/reference/commandline/cli/#cp) copies files or folders out of a container's filesystem.
 * [`docker export`](http://docs.docker.io/reference/commandline/cli/#export) turns container filesystem into tarball.
 
-### Entering a Docker Container
 
-The "official" way to enter a docker container while it's running is to use `nsenter`, which uses [libcontainer under the hood](http://jpetazzo.github.io/2014/03/23/lxc-attach-nsinit-nsenter-docker-0-9/).  Using an `sshd` daemon is [considered evil](http://jpetazzo.github.io/2014/06/23/docker-ssh-considered-evil/).  
-
-Unfortunately, nsenter requires some configuration and installation. If your operating system does not include nsenter (usually in a package named util-linux or similar, although it has to be quite a recent version), the easiest way is probably to install it through docker, as described in the first of the following links:
-
-* [Installing nsenter using docker](https://github.com/jpetazzo/nsenter)
-* [How to enter a Docker container](https://blog.codecentric.de/en/2014/07/enter-docker-container/)
-* [Docker debug with nsenter on boot2docker](http://blog.sequenceiq.com/blog/2014/07/05/docker-debug-with-nsenter-on-boot2docker/)
-
-`nsenter` allows you to run any command (e.g. a shell) inside a container that's already running another command (e.g. your database or webserver). This allows you to see all mounted volumes, check on processes, log files etc. inside a running container.
-
-The first installation method described above also installs a small wrapper script wrapping `nsenter` named `docker-enter` that makes executing a shell inside a running container as easy as `docker-enter CONTAINER` and any other command via `docker-enter CONTAINER COMMAND`.
-
-## Images
+### Images
 
 Images are just [templates for docker containers](http://docker.readthedocs.org/reference/terms/image/).
 
-### Lifecycle
 
-* [`docker images`](http://docs.docker.io/reference/commandline/cli/#images) shows all images.
-* [`docker import`](http://docs.docker.io/reference/commandline/cli/#import) creates an image from a tarball.
-* [`docker build`](http://docs.docker.io/reference/commandline/cli/#build) creates image from Dockerfile.
-* [`docker commit`](http://docs.docker.io/reference/commandline/cli/#commit) creates image from a container.
-* [`docker rmi`](http://docs.docker.io/reference/commandline/cli/#rmi) removes an image.
-* [`docker insert`](http://docs.docker.io/reference/commandline/cli/#insert) inserts a file from URL into image. (kind of odd, you'd think images would be immutable after create)
-* [`docker load`](http://docs.docker.io/reference/commandline/cli/#load) loads an image from a tar archive as STDIN, including images and tags (as of 0.7).
-* [`docker save`](http://docs.docker.io/reference/commandline/cli/#save) saves an image to a tar archive stream to STDOUT with all parent layers, tags & versions (as of 0.7).
-
-`docker import` and `docker commit` only set up the filesystem, not Dockerfile info like CMD or ENTRYPOINT or EXPOSE.  See [bug](https://github.com/dotcloud/docker/issues/1141).
-
-### Info
-
-* [`docker history`](http://docs.docker.io/reference/commandline/cli/#history) shows history of image.
-* [`docker tag`](http://docs.docker.io/reference/commandline/cli/#tag) tags an image to a name (local or registry).
-
-## Registry & Repository
-
-A repository is a *hosted* collection of tagged images that together create the file system for a container.
-
-A registry is a *host* -- a server that stores repositories and provides an HTTP API for [managing the uploading and downloading of repositories](http://docs.docker.io/use/workingwithrepository/).
 
 Docker.io hosts its own [index](https://index.docker.io/) to a central registry which contains a large number of repositories.
 
@@ -163,7 +134,7 @@ Docker.io hosts its own [index](https://index.docker.io/) to a central registry 
 * [`docker pull`](http://docs.docker.io/reference/commandline/cli/#pull) pulls an image from registry to local machine.
 * [`docker push`](http://docs.docker.io/reference/commandline/cli/#push) pushes an image to the registry from local machine.
 
-## Dockerfile
+### Dockerfile
 
 [The configuration file](http://docs.docker.io/introduction/working-with-docker/#working-with-the-dockerfile). Sets up a Docker container when you run `docker build` on it.  Vastly preferable to `docker commit`.
 
