@@ -110,14 +110,16 @@ Like DNS , Email is very critical for many business I wouldnt host my own email 
 
 You should go with a hosted email with exchange like 1&1 for 10$/year range or Rackspace for 2$/user/month range or 5$/user/month with Google/outlook instead of doing this for critical 
 
-All you need to do is ssh into server , yum install bind9 / yum install ajenti-v-mail
+All you need to do is ssh into server , `yum install bind9` / `yum install ajenti-v-mail`
 
-Or add these instructions into docker file and run the image with additional ports opened .. ex: -p 53:53 (DNS) -p 25:25 (SMTP ), -p 143:143 (IMAP) -p 110:110 (POP) and so on.
+Or add these instructions into docker file and run the image with additional ports opened .. 
+`ex: -p 53:53 (DNS) -p 25:25 (SMTP ), -p 143:143 (IMAP) -p 110:110 (POP) and so on.`
 
 
 ##To Do 
 
 cPanel Transfer script 
+
 
 
 ## Need support?
