@@ -35,12 +35,12 @@ $ sudo systemctl enable docker.service
 ```
 $ sudo usermod -a -G docker $USER
 ```
-#Log out, and log back in to activate the group change.
+###Log out, and log back in to activate the group change.
 
 #At this point, you should be able to run docker command as a unprivileged user
 
 
-##How to use?
+###How to use?
 
 Follow this tutorial if you like step by step instructions 
 #### http://greenycloud.com/hosting-on-whatpanel/
@@ -81,6 +81,9 @@ default logins root/ch@ngem3
 
 on the docker-run command you can use different external ports than defaults for more security
 ex  -p 7090:8000 , -p 2345:22  so it wont be obvious target for the attacker/viruses to try and hit your server.
+
+
+### See DOCKER-CHEATSHEET.md for nsenter information
 
 
 ##Why Centos Image ?
