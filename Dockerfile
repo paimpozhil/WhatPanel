@@ -8,9 +8,10 @@ RUN yum -y install wget
 RUN wget -O- https://raw.github.com/Eugeny/ajenti/master/scripts/install-rhel.sh | sh
 
 # install the Mysql / php / git / cron / duplicity / backup ninja
-RUN yum -y install /sbin/service which nano openssh-server git mysql-server mysql php-mysql php-gd php-mcrypt php-zip php-xml php-iconv php-curl php-soap php-simplexml php-pdo php-dom php-cli tar \
-              dbus-python.x86_64 dbus-python-devel.x86_64 dbus php-hash php-mysql vixie-cron \
-              backupninja duplicity dialog
+RUN yum -y install /sbin/service which nano openssh-server git mysql-server mysql php-mysql \
+			  php-gd php-mcrypt php-zip php-xml php-iconv php-curl php-soap php-simplexml \
+			  php-pdo php-dom php-cli tar dbus-python.x86_64 dbus-python-devel.x86_64 dbus \
+			  php-hash php-mysql vixie-cron backupninja duplicity dialog
 
 #work around the vsftpd 3.0.2 dependency  issue
 RUN yum -y install http://mirror.neu.edu.cn/CentALT/6/x86_64/vsftpd-3.0.2-2.el6.x86_64.rpm
